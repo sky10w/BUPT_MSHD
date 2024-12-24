@@ -10,6 +10,10 @@ public class ResponseUtil {
     private String msg = null;
     private Object data = null;
 
+    /// Please use ResponseUtil.respond() to create a new Response instance
+    private ResponseUtil() {
+    };
+
     public static ResponseUtil respond() {
         return new ResponseUtil();
     }
