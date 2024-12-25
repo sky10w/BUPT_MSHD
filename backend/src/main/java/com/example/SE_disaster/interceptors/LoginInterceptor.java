@@ -3,6 +3,7 @@ package com.example.SE_disaster.interceptors;
 import com.auth0.jwt.interfaces.Claim;
 import com.example.SE_disaster.utils.UserUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -26,9 +27,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 //                    System.out.println(claims);
                     if (claims != null) {
                         Claim claim = claims.get("claims");
-//                        System.out.println(claim);
-                        Object uid = claim.asMap().get("uid");
-//                        System.out.println(uid);
+                        System.out.println("claim: "+claim);
+                        Object uid = claim.asMap().get("id");
+                        System.out.println("uid: "+uid);
                         UserUtil.setId(Long.valueOf(uid.toString()));
                         return true;
                     }

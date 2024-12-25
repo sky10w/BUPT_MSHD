@@ -47,7 +47,8 @@ public class InformationController {
     }
 
     @PostMapping("/upload")
-    public String uploadInformation(@RequestParam("data") UploadFormat data) throws IOException {
+    public String uploadInformation(@RequestParam("uploadData") UploadFormat data) throws IOException {
+        System.out.println(data);
         CodeService codeService = new CodeService();
         String res_code =
                 codeService.encoder(data.province, data.city, data.county, data.town, data.village,
