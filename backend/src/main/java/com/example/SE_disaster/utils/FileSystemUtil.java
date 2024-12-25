@@ -14,12 +14,12 @@ public class FileSystemUtil {
         return null;
     }
 
-    static public int writeFile(String filePath, byte[] data) {
-        try (FileOutputStream fout = new FileOutputStream(filePath)){
-            fout.write(data);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    static public int writeFile(String filePath, byte[] data) {
+//        try (FileOutputStream fout = new FileOutputStream(filePath)){
+//            fout.write(data);
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

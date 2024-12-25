@@ -1,5 +1,20 @@
 package com.example.SE_disaster.services.DisasterInfo.DisasterSpaceTimeInfo;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.SE_disaster.mappers.RegionCodeMapper;
+import com.example.SE_disaster.models.Region_code;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.management.Query;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Service
 public class DisasterSpaceInfo
 {
     public String province;
@@ -7,15 +22,31 @@ public class DisasterSpaceInfo
     public String county;
     public String town;
     public String village;
-    public String community;
-
-    static public String encode(DisasterSpaceInfo info) {
-        return info.province + info.district + info.county + info.village + info.community;
+    @Autowired
+    private RegionCodeMapper regionCodeMapper;
+    
+    public DisasterSpaceInfo(String province, String city, String county, String town, String village)
+    {
+        this.province = province;
+        this.city = city;
+        this.county = county;
+        this.town = town;
+        this.village = village;
     }
 
-    static public DisasterSpaceInfo decode(String code) {
-        DisasterSpaceInfo res = new DisasterSpaceInfo();
-        res.province =
+    public String encode() {
+        QueryWrapper<Region_code> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("province", province).eq("city", city).eq("county", county).eq("town", town).eq("village", village);
+        return regionCodeMapper.selectOne(queryWrapper).code;
+    }
 
+    public void decode(String code)
+    {
+        Region_code region_code = regionCodeMapper.selectById(code);
+        province = region_code.province;
+        city = region_code.city;
+        county = region_code.county;
+        town = region_code.town;
+        village = region_code.village;
     }
 }
