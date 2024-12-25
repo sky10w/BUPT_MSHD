@@ -1,4 +1,4 @@
-package com.example.SE_disaster.models.DisasterInfo.DisasterSpaceTimeInfo;
+package com.example.SE_disaster.services.DisasterInfo.DisasterSpaceTimeInfo;
 
 public class DisasterTimeInfo {
     public String year;

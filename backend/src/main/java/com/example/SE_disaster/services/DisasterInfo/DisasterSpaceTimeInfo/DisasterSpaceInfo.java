@@ -1,4 +1,4 @@
-package com.example.SE_disaster.models.DisasterInfo.DisasterSpaceTimeInfo;
+package com.example.SE_disaster.services.DisasterInfo.DisasterSpaceTimeInfo;
 
 public class DisasterSpaceInfo {
     public String province;
@@ -7,11 +7,11 @@ public class DisasterSpaceInfo {
     public String village;
     public String community;
 
-    static public String encoder(DisasterSpaceInfo info) {
+    static public String encode(DisasterSpaceInfo info) {
         return info.province + info.district + info.county + info.village + info.community;
     }
 
-    static public DisasterSpaceInfo decoder(String code) {
+    static public DisasterSpaceInfo decode(String code) {
         DisasterSpaceInfo res = new DisasterSpaceInfo();
         res.province = 
 
