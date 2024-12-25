@@ -26,5 +26,6 @@ public class UploadFormat {
     public String childcate;
     public String parentl;
     public String childl;
+    public Object content;
 }
 

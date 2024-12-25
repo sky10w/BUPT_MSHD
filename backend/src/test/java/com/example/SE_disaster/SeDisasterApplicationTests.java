@@ -24,9 +24,9 @@ class SeDisasterApplicationTests {
         //测试编码与解码
         try {
             QueryWrapper<RegionCode> queryWrapper = new QueryWrapper<>();
-            queryWrapper.select("province");
+            queryWrapper.select("DISTINCT province");
             var list = regionCodeMapper.selectList(queryWrapper);
-//            System.out.println("province list: " + list.toString());
+            System.out.println("province list: " + list.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

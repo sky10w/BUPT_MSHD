@@ -16,20 +16,19 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-//        return true;
         if (handler instanceof HandlerMethod) {
             String token = request.getHeader("Authorization");
-            System.out.println(token);
+            System.out.println("Get token: " + token);
             try {
                 if (token != null && !token.isEmpty()) {
                     JwtUtil jwtUtil = new JwtUtil();
                     Map<String, Claim> claims = jwtUtil.verifyToken(token);
-                    System.out.println(claims);
+//                    System.out.println(claims);
                     if (claims != null) {
                         Claim claim = claims.get("claims");
-                        System.out.println(claim);
+//                        System.out.println(claim);
                         Object uid = claim.asMap().get("uid");
-                        System.out.println(uid);
+//                        System.out.println(uid);
                         UserUtil.setId(Long.valueOf(uid.toString()));
                         return true;
                     }
