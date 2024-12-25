@@ -9,4 +9,6 @@ import java.util.ArrayList;
 
 @Mapper
 public interface RegionCodeMapper extends BaseMapper<RegionCode>
-{}
+{
+
+}

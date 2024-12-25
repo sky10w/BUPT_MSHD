@@ -15,13 +15,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class DisasterSpaceInfo
 {
+    @Autowired
+    private RegionCodeMapper regionCodeMapper;
+    
     public String province;
     public String city;
     public String county;
     public String town;
     public String village;
-    @Autowired
-    private RegionCodeMapper regionCodeMapper;
     
     public DisasterSpaceInfo(String province, String city, String county, String town, String village)
     {

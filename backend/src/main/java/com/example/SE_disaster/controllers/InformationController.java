@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.SE_disaster.mappers.DisasterDataMapper;
 import com.example.SE_disaster.mappers.RegionCodeMapper;
 import com.example.SE_disaster.models.DisasterData;
+import com.example.SE_disaster.models.RegionCode;
 import com.example.SE_disaster.models.UploadFormat;
 import com.example.SE_disaster.services.CodeService;
+import com.example.SE_disaster.services.CommonOPService;
 import com.example.SE_disaster.services.DisasterInfo.DisasterSpaceTimeInfo.DisasterSpaceInfo;
 import com.example.SE_disaster.services.FileSystemService;
 import com.example.SE_disaster.utils.ResponseUtil;
@@ -28,6 +30,8 @@ public class InformationController {
     private DisasterSpaceInfo disasterSpaceInfo;
     @Autowired
     private RegionCodeMapper regionCodeMapper;
+    @Autowired
+    private CommonOPService commonOPService;
 
     private static DisasterData getDisasterData(UploadFormat code, String res_code, String description) {
         DisasterData disasterData = new DisasterData();
@@ -47,7 +51,7 @@ public class InformationController {
     }
 
     @PostMapping("/upload")
-    public String uploadInformation(@RequestParam("uploadData") UploadFormat data) throws IOException {
+    public String uploadInformation(UploadFormat data) throws IOException {
         System.out.println(data);
         CodeService codeService = new CodeService();
         String res_code =
@@ -93,41 +97,62 @@ public class InformationController {
         return ResponseUtil.respond().setCode(200).setMessage("Uploading data successful").json();
     }
 
-
-    public <T> List<String> getColumnDistinct(BaseMapper mapper, String col) {
-        QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.select("DISTINCT " + col);
-        return mapper.selectList(queryWrapper);
-    }
-
     @GetMapping("/province")
     public String getAllProvinces() throws IOException {
-        var list = getColumnDistinct(regionCodeMapper, "province");
-        return ResponseUtil.respond().setCode(200).setData(list).setMessage("Get provinces success").json();
+        var list = commonOPService.getColumnDistinct(regionCodeMapper, "province");
+        List<String> res = new ArrayList<>();
+        for (var item : list) {
+            res.add(item.province);
+        }
+        return ResponseUtil.respond().setCode(200).setData(res).setMessage("Get provinces success").json();
     }
 
     @GetMapping("/city")
-    public String getAllCities() throws IOException {
-        var list = getColumnDistinct(regionCodeMapper, "city");
-        return ResponseUtil.respond().setCode(200).setData(list).setMessage("Get cities success").json();
+    public String getAllCities(@RequestParam("province") String province) throws IOException {
+        QueryWrapper<RegionCode> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("province",province);
+        var list = commonOPService.getColumnDistinct(regionCodeMapper, "city",queryWrapper);
+        List<String> res = new ArrayList<>();
+        for (var item : list) {
+            res.add(item.city);
+        }
+        return ResponseUtil.respond().setCode(200).setData(res).setMessage("Get cities success").json();
     }
 
     @GetMapping("/county")
-    public String getAllCounties() throws IOException {
-        var list = getColumnDistinct(regionCodeMapper, "county");
-        return ResponseUtil.respond().setCode(200).setData(list).setMessage("Get counties success").json();
+    public String getAllCounties(@RequestParam("city") String city) throws IOException {
+        QueryWrapper<RegionCode> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("city",city);
+        var list = commonOPService.getColumnDistinct(regionCodeMapper, "county");
+        List<String> res = new ArrayList<>();
+        for (var item : list) {
+            res.add(item.county);
+        }
+        return ResponseUtil.respond().setCode(200).setData(res).setMessage("Get counties success").json();
     }
 
     @GetMapping("/town")
-    public String getAllTowns() throws IOException {
-        var list = getColumnDistinct(regionCodeMapper, "town");
-        return ResponseUtil.respond().setCode(200).setData(list).setMessage("Get towns success").json();
+    public String getAllTowns(@RequestParam("county") String county) throws IOException {
+        QueryWrapper<RegionCode> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("county",county);
+        var list = commonOPService.getColumnDistinct(regionCodeMapper, "town",queryWrapper);
+        List<String> res = new ArrayList<>();
+        for (var item : list) {
+            res.add(item.town);
+        }
+        return ResponseUtil.respond().setCode(200).setData(res).setMessage("Get towns success").json();
     }
 
     @GetMapping("/village")
-    public String getAllVillages() throws IOException {
-        var list = getColumnDistinct(regionCodeMapper, "village");
-        return ResponseUtil.respond().setCode(200).setData(list).setMessage("Get towns success").json();
+    public String getAllVillages(@RequestParam("town") String town) throws IOException {
+        QueryWrapper<RegionCode> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("town",town);
+        var list = commonOPService.getColumnDistinct(regionCodeMapper, "village",queryWrapper);
+        List<String> res = new ArrayList<>();
+        for (var item : list) {
+            res.add(item.village);
+        }
+        return ResponseUtil.respond().setCode(200).setData(res).setMessage("Get towns success").json();
     }
 
 
