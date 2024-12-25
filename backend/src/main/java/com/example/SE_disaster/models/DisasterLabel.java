@@ -14,16 +14,16 @@ import lombok.NoArgsConstructor;
 @TableName(value = "dlabel")
 public class DisasterLabel {
     @TableField(value = "parentl")
-    public String parentl = "";
+    public String parentl;
 
     @MppMultiId
-    @TableField(value = "parentid")
-    public String parentid = "";
+    @TableField(value = "parentlid")
+    public String parentid;
 
     @TableField(value = "childl")
-    public String childl = "";
+    public String childl;
 
     @MppMultiId
-    @TableField(value = "childid")
-    public String childid = "";
+    @TableField(value = "childlid")
+    public String childid;
 }

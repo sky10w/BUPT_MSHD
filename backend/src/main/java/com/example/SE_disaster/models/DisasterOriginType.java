@@ -17,11 +17,11 @@ public class DisasterOriginType
     @TableId(value = "oid",type = IdType.NONE)
     public String oid;
     @TableField(value = "parentoid")
-    public String parent_oid;
+    public String parentoid;
     @TableField(value = "parento")
-    public String parent_o;
+    public String parento;
     @TableField(value = "childoid")
-    public String child_oid;
+    public String childoid;
     @TableField(value = "childo")
-    public String child_o;
+    public String childo;
 }

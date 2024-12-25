@@ -1,7 +1,6 @@
 package com.example.SE_disaster.controllers;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.SE_disaster.mappers.DisasterDataMapper;
 import com.example.SE_disaster.mappers.RegionCodeMapper;
 import com.example.SE_disaster.models.DisasterData;
@@ -9,7 +8,6 @@ import com.example.SE_disaster.models.RegionCode;
 import com.example.SE_disaster.models.UploadFormat;
 import com.example.SE_disaster.services.CodeService;
 import com.example.SE_disaster.services.CommonOPService;
-import com.example.SE_disaster.services.DisasterInfo.DisasterSpaceTimeInfo.DisasterSpaceInfo;
 import com.example.SE_disaster.services.FileSystemService;
 import com.example.SE_disaster.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +24,6 @@ import java.util.List;
 public class InformationController {
     @Autowired
     private DisasterDataMapper disasterDataMapper;
-    @Autowired
-    private DisasterSpaceInfo disasterSpaceInfo;
     @Autowired
     private RegionCodeMapper regionCodeMapper;
     @Autowired

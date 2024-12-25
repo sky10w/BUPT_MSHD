@@ -15,13 +15,13 @@ import lombok.NoArgsConstructor;
 public class DisasterCategoryType
 {
     @TableId(value = "cateid",type = IdType.NONE)
-    public String cate_id = "";
+    public String cateid;
     @TableField(value = "parentcate")
-    public String parent_cate = "";
+    public String parentcate;
     @TableField(value = "parentcateid")
-    public String parent_cate_id = "";
+    public String parentcateid;
     @TableField(value = "childcate")
-    public String child_cate = "";
+    public String childcate;
     @TableField(value = "childcateid")
-    public String child_cate_id = "";
+    public String childcateid;
 }

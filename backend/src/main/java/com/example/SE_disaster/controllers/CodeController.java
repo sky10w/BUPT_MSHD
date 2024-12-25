@@ -43,4 +43,16 @@ public class CodeController
                 .json();
     }
     
+    @RequestMapping("/decode")
+    public String decoder(String code)
+    {
+        String result = codeService.decoder(code);
+        System.out.println(result);
+        return ResponseUtil.respond()
+                .setCode(200)
+                .setMessage("success")
+                .setData(result)
+                .json();
+    }
+    
 }
