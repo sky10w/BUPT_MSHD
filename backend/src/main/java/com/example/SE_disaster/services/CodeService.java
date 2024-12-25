@@ -16,7 +16,12 @@ public class CodeService
     public DisasterCarrierInfo disasterCarrierInfo;
     public DisasterSituationInfo disasterSituationInfo;
     
-    public String encoder(String province, String city, String county, String town, String village, String year, String month, String day, String hour, String minute, String second,String parento,String childo,String carrier,String parentcate, String childcate, String parentl, String childl)
+    public String encoder(String province, String city, String county,
+                          String town, String village, String year,
+                          String month, String day, String hour, String minute,
+                          String second,String parento,String childo,
+                          String carrier,String parentcate, String childcate,
+                          String parentl, String childl)
     {
         disasterSpaceTimeInfo = new DisasterSpaceTimeInfo();
         String spaceTimeCode = disasterSpaceTimeInfo.encoder(province, city, county, town, village, year, month, day, hour, minute, second);

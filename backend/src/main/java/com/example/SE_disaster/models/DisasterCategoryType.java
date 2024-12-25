@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "category")
+@TableName(value = "dcategory")
 public class DisasterCategoryType
 {
     @TableId(value = "cateid",type = IdType.NONE)

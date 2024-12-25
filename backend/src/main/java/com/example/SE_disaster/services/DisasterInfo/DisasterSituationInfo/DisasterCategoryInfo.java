@@ -21,7 +21,7 @@ public class DisasterCategoryInfo
     public String childcate = "";
     @Autowired
     private DisasterCategoryTypeMapper disasterCategoryTypeMapper;
-    
+
     public DisasterCategoryInfo(String parentcate, String childcate)
     {
         this.parentcate = parentcate;

@@ -16,6 +16,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
+//        return true;
         if (handler instanceof HandlerMethod) {
             String token = request.getHeader("Authorization");
             System.out.println(token);

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@TableName(value = "carrier")
+@TableName(value = "dcarrier")
 public class CarrierType
 {
     @TableId(value = "cid",type = IdType.NONE)

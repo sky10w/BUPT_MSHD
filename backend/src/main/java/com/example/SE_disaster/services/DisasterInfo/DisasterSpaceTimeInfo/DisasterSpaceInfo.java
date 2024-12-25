@@ -2,14 +2,12 @@ package com.example.SE_disaster.services.DisasterInfo.DisasterSpaceTimeInfo;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.SE_disaster.mappers.RegionCodeMapper;
-import com.example.SE_disaster.models.Region_code;
+import com.example.SE_disaster.models.RegionCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.management.Query;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,14 +33,14 @@ public class DisasterSpaceInfo
     }
 
     public String encode() {
-        QueryWrapper<Region_code> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<RegionCode> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("province", province).eq("city", city).eq("county", county).eq("town", town).eq("village", village);
         return regionCodeMapper.selectOne(queryWrapper).code;
     }
 
     public void decode(String code)
     {
-        Region_code region_code = regionCodeMapper.selectById(code);
+        RegionCode region_code = regionCodeMapper.selectById(code);
         province = region_code.province;
         city = region_code.city;
         county = region_code.county;
