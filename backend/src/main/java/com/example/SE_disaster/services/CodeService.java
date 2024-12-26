@@ -6,6 +6,8 @@ import com.example.SE_disaster.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class CodeService
 {
@@ -50,7 +52,7 @@ public class CodeService
         situationCode += disasterInfoTypeMapper.selectOne(queryWrapper4).childid;
         return spaceTimeCode + originCode + carrierCode + situationCode;
     }
-    public String decoder(String code)
+    public Map<String,String> decoder(String code)
     {
         String province, city, county,
             town, village, year,
@@ -89,6 +91,25 @@ public class CodeService
         DisasterLabel disasterLabel = disasterInfoTypeMapper.selectOne(queryWrapper);
         parentl = disasterLabel.parentl;
         childl = disasterLabel.childl;
-        return province + city + county + town + village + year + month + day + hour + minute + second + parento + childo + carrier + parentcate + childcate + parentl + childl;
+        Map<String, String> result = new java.util.HashMap<>();
+        result.put("province", province);
+        result.put("city", city);
+        result.put("county", county);
+        result.put("town", town);
+        result.put("village", village);
+        result.put("year", year);
+        result.put("month", month);
+        result.put("day", day);
+        result.put("hour", hour);
+        result.put("minute", minute);
+        result.put("second", second);
+        result.put("parento", parento);
+        result.put("childo", childo);
+        result.put("carrier", carrier);
+        result.put("parentcate", parentcate);
+        result.put("childcate", childcate);
+        result.put("parentl", parentl);
+        result.put("childl", childl);
+        return result;
     }
 }

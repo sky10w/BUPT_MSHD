@@ -31,9 +31,11 @@ public class CodeController
                           String parentcate,
                           String childcate,
                           String parentl,
-                          String childl
+                          String childl,
+                          String Content
     )
     {
+        System.out.println(Content);
         String result = codeService.encoder(province,city,county,town,village,year,month,day,hour,minute,second,parento,childo,carrier,parentcate,childcate,parentl,childl);
         System.out.println(result);
         return ResponseUtil.respond()
@@ -46,7 +48,7 @@ public class CodeController
     @RequestMapping("/decode")
     public String decoder(String code)
     {
-        String result = codeService.decoder(code);
+        var result = codeService.decoder(code);
         System.out.println(result);
         return ResponseUtil.respond()
                 .setCode(200)

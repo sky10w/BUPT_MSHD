@@ -23,42 +23,25 @@ import java.util.List;
 @RequestMapping("/info")
 public class InformationController {
     @Autowired
-    private DisasterDataMapper disasterDataMapper;
-    @Autowired
     private RegionCodeMapper regionCodeMapper;
     @Autowired
     private CommonOPService commonOPService;
-
-    private static DisasterData getDisasterData(UploadFormat code, String res_code, String description) {
-        DisasterData disasterData = new DisasterData();
-        disasterData.setCode(res_code);
-        disasterData.setLocation(
-                String.join(" ",
-                        code.province , code.city,
-                        code.county , code.town , code.village)
-        );
-        disasterData.setDate(code.year + " " + code.month + " " + code.day);
-        disasterData.setDescription(description);
-        disasterData.setCarrier(code.carrier);
-        disasterData.setCategory(code.parentcate + " " + code.childcate);
-        disasterData.setOrigin(code.parento + " " + code.childo);
-        disasterData.setLabel(code.parentl + " " + code.childl);
-        return disasterData;
-    }
+    @Autowired
+    private CodeService codeService;
+    @Autowired
+    private FileSystemService fileSystemService;
 
     @PostMapping("/upload")
     public String uploadInformation(UploadFormat data) throws IOException {
         System.out.println(data);
-        CodeService codeService = new CodeService();
         String res_code =
                 codeService.encoder(data.province, data.city, data.county, data.town, data.village,
                 data.year, data.month, data.day, data.hour, data.minute, data.second,
                 data.parento, data.childo, data.carrier, data.parentcate, data.childcate, data.parentl, data. childl);
 
         { // check if instance with the same code exists
-            QueryWrapper<DisasterData> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("code", res_code);
-            if (disasterDataMapper.exists(queryWrapper)) {
+            
+            if (fileSystemService.checkCode(res_code)) {
                 return ResponseUtil.respond().setCode(200)
                         .setMessage("Existing Data has the same code")
                         .json();
@@ -67,7 +50,7 @@ public class InformationController {
 
         String description;
         ArrayList<String> otherCarrier = new ArrayList<>(Arrays.asList("图像", "音频", "视频", "其他"));
-        if(data.carrier == "文字") {
+        if(data.carrier.equals("文字")) {
             description = data.content.toString();
         }
         else if (otherCarrier.contains(data.carrier)) {
@@ -88,8 +71,8 @@ public class InformationController {
         } else {
             return ResponseUtil.respond().setCode(200).setMessage("Unknown data carrier").json();
         }
-        DisasterData disasterData = getDisasterData(data, res_code, description);
-        disasterDataMapper.insert(disasterData);
+        DisasterData disasterData = fileSystemService.getDisasterData(data, res_code, description);
+        fileSystemService.saveDisasterData(disasterData);
         return ResponseUtil.respond().setCode(200).setMessage("Uploading data successful").json();
     }
 
