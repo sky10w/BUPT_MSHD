@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 public class CommonOPService
 {
+   
     public <T> List<T> getColumnDistinct(BaseMapper<T> mapper, String col) {
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.select("DISTINCT " + col);

@@ -136,5 +136,18 @@ public class InformationController {
         return ResponseUtil.respond().setCode(200).setData(res).setMessage("Get towns success").json();
     }
 
-
+    @PostMapping("/query")
+    public String queryInformation(@RequestParam("province") String province,
+                                   @RequestParam("city") String city,
+                                   @RequestParam("county") String county,
+                                   @RequestParam("town") String town,
+                                   @RequestParam("village") String village) throws IOException {
+        List<DisasterData> res = fileSystemService.getDisasterDataByLocation(province, city, county, town, village);
+        return ResponseUtil.respond().setCode(200).setData(res).setMessage("Query success").json();
+    }
+    
+    @GetMapping("/getAllLogs")
+    public String getAllLogs() {
+        return ResponseUtil.respond().setCode(200).setData(fileSystemService.getAllLogs()).setMessage("Get all logs success").json();
+    }
 }

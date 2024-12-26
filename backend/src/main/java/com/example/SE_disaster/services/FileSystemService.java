@@ -12,6 +12,7 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class FileSystemService {
@@ -65,5 +66,41 @@ public class FileSystemService {
         QueryWrapper<DisasterData> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("code", res_code);
         return disasterDataMapper.exists(queryWrapper);
+    }
+    
+    public DisasterData getDisasterDataByCode(String res_code) {
+        return disasterDataMapper.selectById(res_code);
+    }
+    
+    public void deleteDisasterDataByCode(String res_code) {
+        disasterDataMapper.deleteById(res_code);
+    }
+    
+    public void updateDisasterDataByCode(String res_code, DisasterData disasterData) {
+        disasterDataMapper.updateById(disasterData);
+    }
+    
+    public List<DisasterData> getDisasterDataByLocation(String province, String city, String county, String town, String village) {
+        QueryWrapper<DisasterData> queryWrapper = new QueryWrapper<>();
+        String condition = "";
+        if(province != null && !province.isEmpty())
+            condition += province;
+        if(city != null && !city.isEmpty())
+            condition += " " + city;
+        if(county != null && !county.isEmpty())
+            condition += " " + county;
+        if(town != null && !town.isEmpty())
+            condition += " " + town;
+        if(village != null && !village.isEmpty())
+            condition += " " + village;
+        queryWrapper.like("location", condition);
+        var res = disasterDataMapper.selectList(queryWrapper);
+        System.out.println(res);
+        return res;
+    }
+    
+    public List<DisasterData> getAllLogs()
+    {
+        return disasterDataMapper.selectList(null);
     }
 }
