@@ -99,10 +99,12 @@ public class InformationController {
     }
 
     @GetMapping("/county")
-    public String getAllCounties(@RequestParam("city") String city) throws IOException {
+    public String getAllCounties(@RequestParam("city") String city,@RequestParam("province") String province) throws IOException {
+        System.out.println(city);
+        System.out.println(province);
         QueryWrapper<RegionCode> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("city",city);
-        var list = commonOPService.getColumnDistinct(regionCodeMapper, "county");
+        queryWrapper.eq("city",city).eq("province",province);
+        var list = commonOPService.getColumnDistinct(regionCodeMapper, "county",queryWrapper);
         List<String> res = new ArrayList<>();
         for (var item : list) {
             res.add(item.county);

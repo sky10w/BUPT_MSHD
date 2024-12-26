@@ -48,7 +48,7 @@ public class FileSystemService {
                         code.province , code.city,
                         code.county , code.town , code.village)
         );
-        disasterData.setDate(code.year + " " + code.month + " " + code.day);
+        disasterData.setDate(code.year + " " + code.month + " " + code.day+" "+code.hour+" "+code.minute+" "+code.second);
         disasterData.setDescription(description);
         disasterData.setCarrier(code.carrier);
         disasterData.setCategory(code.parentcate + " " + code.childcate);

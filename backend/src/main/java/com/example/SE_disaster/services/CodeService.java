@@ -34,6 +34,16 @@ public class CodeService
         QueryWrapper<RegionCode> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("province", province).eq("city", city).eq("county", county).eq("town", town).eq("village", village);
         spaceTimeCode = regionCodeMapper.selectOne(queryWrapper).code;
+        if(month.length() == 1)
+            month = "0" + month;
+        if(day.length() == 1)
+            day = "0" + day;
+        if(hour.length() == 1)
+            hour = "0" + hour;
+        if(minute.length() == 1)
+            minute = "0" + minute;
+        if(second.length() == 1)
+            second = "0" + second;
         spaceTimeCode +=year + month + day + hour + minute + second;
         String originCode = "";
         QueryWrapper<DisasterOriginType> queryWrapper1 = new QueryWrapper<>();
