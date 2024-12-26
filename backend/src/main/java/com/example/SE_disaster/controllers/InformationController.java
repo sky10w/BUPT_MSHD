@@ -4,17 +4,21 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.SE_disaster.mappers.DisasterDataMapper;
 import com.example.SE_disaster.mappers.RegionCodeMapper;
 import com.example.SE_disaster.models.DisasterData;
+import com.example.SE_disaster.models.PersonalInformation;
 import com.example.SE_disaster.models.RegionCode;
 import com.example.SE_disaster.models.UploadFormat;
 import com.example.SE_disaster.services.CodeService;
 import com.example.SE_disaster.services.CommonOPService;
 import com.example.SE_disaster.services.FileSystemService;
+import com.example.SE_disaster.services.PersonalInformationService;
 import com.example.SE_disaster.utils.ResponseUtil;
+import com.example.SE_disaster.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +34,8 @@ public class InformationController {
     private CodeService codeService;
     @Autowired
     private FileSystemService fileSystemService;
+    @Autowired
+    private PersonalInformationService personalInformationService;
 
     @PostMapping("/upload")
     public String uploadInformation(UploadFormat data) throws IOException {
@@ -73,6 +79,8 @@ public class InformationController {
         }
         DisasterData disasterData = fileSystemService.getDisasterData(data, res_code, description);
         fileSystemService.saveDisasterData(disasterData);
+        Long uid = UserUtil.getId();
+        personalInformationService.insertActivities(uid,LocalDate.now(),"提交灾情报告");
         return ResponseUtil.respond().setCode(200).setMessage("Uploading data successful").json();
     }
 

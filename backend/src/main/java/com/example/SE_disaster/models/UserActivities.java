@@ -8,18 +8,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("personalInformation")
-public class PersonalInformation
+@TableName("useractivities")
+public class UserActivities
 {
-    @TableId(value = "uid",type = IdType.NONE)
+    @TableField(value = "uid")
     public Long uid;
-    @TableField("phonenumber")
-    public String phonenumber;
-    @TableField("email")
-    public String email;
-    @TableField("nickname")
-    public String nickname;
+    @TableField(value = "activity")
+    public String activity;
+    @TableField(value = "date")
+    public LocalDate date;
 }

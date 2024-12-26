@@ -16,6 +16,50 @@ public class PersonalInformationController
     @Autowired
     private PersonalInformationService personalInformationService;
     
+    @GetMapping("/getPersonalInformation")
+    public String getPersonalInformation()
+    {
+        Long uid = UserUtil.getId();
+        var result = personalInformationService.getPersonalInformation(uid);
+        if(result == null)
+        {
+            return ResponseUtil.respond()
+                    .setCode(400)
+                    .setMessage("用户不存在")
+                    .json();
+        }
+        else
+        {
+            return ResponseUtil.respond()
+                    .setCode(200)
+                    .setMessage("获取信息成功")
+                    .setData(result)
+                    .json();
+        }
+    }
+    
+    @GetMapping("/getActivities")
+    public String getActivities()
+    {
+        Long uid = UserUtil.getId();
+        var result = personalInformationService.getActivities(uid);
+        if(result == null)
+        {
+            return ResponseUtil.respond()
+                    .setCode(400)
+                    .setMessage("用户不存在")
+                    .json();
+        }
+        else
+        {
+            return ResponseUtil.respond()
+                    .setCode(200)
+                    .setMessage("获取信息成功")
+                    .setData(result)
+                    .json();
+        }
+    }
+    
     @PostMapping("/insert")
     public String insert(String phone_number,
                          String email,
@@ -40,12 +84,12 @@ public class PersonalInformationController
     }
     
     @PostMapping("/update")
-    public String update(String phone_number,
+    public String update(String phonenumber,
                          String email,
-                         String nick_name)
+                         String nickname)
     {
         Long uid = UserUtil.getId();
-        boolean result = personalInformationService.updatePersonalInformation(uid, phone_number, email, nick_name);
+        boolean result = personalInformationService.updatePersonalInformation(uid, phonenumber, email, nickname);
         if(result)
         {
             return ResponseUtil.respond()
